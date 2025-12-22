@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Outfit, Inter } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
@@ -15,9 +15,35 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
+export const viewport: Viewport = {
+  themeColor: "#FF2D86",
+};
+
 export const metadata: Metadata = {
   title: "Taco's Nightlife | VRChat Circuit",
   description: "A connected series of worlds. Coordinated events. Tradition built after dark.",
+  metadataBase: new URL('https://tacos-nightlife.vercel.app'), // Best practice to set a base, using generic for now or local
+  openGraph: {
+    title: "Taco's Nightlife | VRChat Circuit",
+    description: "A connected series of worlds. Coordinated events. Tradition built after dark.",
+    siteName: "Taco's Nightlife",
+    images: [
+      {
+        url: "/branding/logo-afterdark.png",
+        width: 1200,
+        height: 630,
+        alt: "Taco's Nightlife Branding",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Taco's Nightlife | VRChat Circuit",
+    description: "A connected series of worlds. Coordinated events. Tradition built after dark.",
+    images: ["/branding/logo-afterdark.png"],
+  },
   icons: {
     icon: '/branding/logo-mark.png'
   }
