@@ -1,26 +1,145 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Brand Colors - Cyberpunk Palette */
+  --brand-black: #050505;
+  --brand-dark: #0a0a0f;
+  --cyber-pink: #ff00ff;
+  --cyber-cyan: #00ffff;
+  --cyber-yellow: #faff00;
+  --cyber-violet: #bd00ff;
+
+  /* Semantic Colors */
+  --background: var(--brand-black);
+  --foreground: #ffffff;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  --color-brand-black: var(--brand-black);
+  --color-brand-dark: var(--brand-dark);
+  --color-cyber-pink: var(--cyber-pink);
+  --color-cyber-cyan: var(--cyber-cyan);
+  --color-cyber-yellow: var(--cyber-yellow);
+  --color-cyber-violet: var(--cyber-violet);
+
+  /* Fonts */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  --animate-slow-spin: spin 3s linear infinite;
+  --animate-pulse-slow: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-glitch-1: glitch-anim-1 2.5s infinite linear alternate-reverse;
+  --animate-glitch-2: glitch-anim-2 3s infinite linear alternate-reverse;
+  --animate-scanline: scanline 8s linear infinite;
+
+  @keyframes glitch-anim-1 {
+    0% {
+      clip-path: inset(20% 0 80% 0);
+      transform: translate(-2px, 1px);
+    }
+
+    5% {
+      clip-path: inset(60% 0 10% 0);
+      transform: translate(2px, -1px);
+    }
+
+    10% {
+      clip-path: inset(40% 0 50% 0);
+      transform: translate(-2px, 2px);
+    }
+
+    15% {
+      clip-path: inset(80% 0 5% 0);
+      transform: translate(2px, -2px);
+    }
+
+    20% {
+      clip-path: inset(10% 0 70% 0);
+      transform: translate(-1px, 1px);
+    }
+
+    25% {
+      clip-path: inset(30% 0 20% 0);
+      transform: translate(1px, -1px);
+    }
+
+    100% {
+      clip-path: inset(20% 0 80% 0);
+      transform: translate(0);
+    }
+  }
+
+  @keyframes glitch-anim-2 {
+    0% {
+      clip-path: inset(10% 0 60% 0);
+      transform: translate(2px, -1px);
+    }
+
+    5% {
+      clip-path: inset(80% 0 5% 0);
+      transform: translate(-2px, 1px);
+    }
+
+    10% {
+      clip-path: inset(30% 0 20% 0);
+      transform: translate(2px, 2px);
+    }
+
+    15% {
+      clip-path: inset(10% 0 80% 0);
+      transform: translate(-2px, -2px);
+    }
+
+    20% {
+      clip-path: inset(50% 0 30% 0);
+      transform: translate(1px, 1px);
+    }
+
+    25% {
+      clip-path: inset(20% 0 60% 0);
+      transform: translate(-1px, -1px);
+    }
+
+    100% {
+      clip-path: inset(10% 0 60% 0);
+      transform: translate(0);
+    }
+  }
+
+  @keyframes scanline {
+    0% {
+      transform: translateY(-100%);
+    }
+
+    100% {
+      transform: translateY(100%);
+    }
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+::selection {
+  background: var(--cyber-cyan);
+  color: black;
 }
