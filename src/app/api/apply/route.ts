@@ -1,4 +1,7 @@
 import { NextResponse } from 'next/server';
+import { Resend } from 'resend';
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request: Request) {
     try {
@@ -9,18 +12,33 @@ export async function POST(request: Request) {
             return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
         }
 
-        // In a real app, this would send an email via Resend or save to DB.
-        // For now, we log it to the build logs (which would show up in Vercel logs).
-        console.log('--- NEW STAFF APPLICATION ---');
-        console.log('Name:', body.name);
-        console.log('Discord:', body.discord);
-        console.log('Role:', body.role);
-        console.log('Experience:', body.experience);
-        console.log('Availability:', body.availability);
-        console.log('-----------------------------');
+        const { name, discord, role, experience, availability } = body;
+
+        const data = await resend.emails.send({
+            from: 'Tacos Nightlife <onboarding@resend.dev>', // Use default testing domain or user's domain if configured
+            to: ['itstwerktaco@gmail.com'],
+            subject: `New Staff Application: ${name} - ${role}`,
+            html: `
+                <h1>New Staff Application</h1>
+                <p><strong>Name:</strong> ${name}</p>
+                <p><strong>Discord:</strong> ${discord}</p>
+                <p><strong>Role Interested In:</strong> ${role}</p>
+                <hr />
+                <h3>Experience</h3>
+                <p>${experience || 'N/A'}</p>
+                <h3>Availability</h3>
+                <p>${availability || 'N/A'}</p>
+            `,
+        });
+
+        if (data.error) {
+            console.error('Resend Error:', data.error);
+            return NextResponse.json({ error: 'Failed to send email' }, { status: 500 });
+        }
 
         return NextResponse.json({ success: true, message: 'Application received' });
     } catch (error) {
+        console.error('Server Error:', error);
         return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
     }
 }
