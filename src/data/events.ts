@@ -3,30 +3,51 @@ import { Event } from './types';
 // Mock data for now, easy to update
 export const events: Event[] = [
     {
-        id: 'evt-001',
-        title: "Friday Night Heat",
-        venueId: 'afterdark',
-        date: '2025-12-26T22:00:00', // Future date relative to current time
-        lineup: ['DJ Solstice', 'Neon Vixen', 'BassCannon'],
-        status: 'upcoming',
-        links: {
-            discord: 'https://discord.gg/A4WbpKEWds'
-        }
-    },
-    {
-        id: 'evt-002',
-        title: "Underground Sessions",
-        venueId: 'underground',
-        date: '2025-12-27T23:00:00',
-        lineup: ['GrimeLord', 'IndustrialTek'],
+        id: 'evt-hood-1',
+        title: "Hood Takeovers",
+        venueId: 'the-hood',
+        date: '2025-12-26T22:00:00',
+        lineup: ['TBD'],
         status: 'upcoming'
     },
     {
-        id: 'evt-003',
-        title: "Sunday Recovery",
-        venueId: 'afterparty',
-        date: '2025-12-28T14:00:00',
-        lineup: ['ChillWave', 'LofiGirl'],
+        id: 'evt-taco-1',
+        title: "Taco Tuesday",
+        venueId: 'afterdark',
+        date: '2025-12-30T22:00:00',
+        lineup: ['TBD'],
+        status: 'upcoming'
+    },
+    {
+        id: 'evt-hood-2',
+        title: "Hood Takeovers",
+        venueId: 'the-hood',
+        date: '2026-01-02T22:00:00',
+        lineup: ['TBD'],
+        status: 'upcoming'
+    },
+    {
+        id: 'evt-taco-2',
+        title: "Taco Tuesday",
+        venueId: 'afterdark',
+        date: '2026-01-06T22:00:00',
+        lineup: ['TBD'],
+        status: 'upcoming'
+    },
+    {
+        id: 'evt-hood-3',
+        title: "Hood Takeovers",
+        venueId: 'the-hood',
+        date: '2026-01-09T22:00:00',
+        lineup: ['TBD'],
+        status: 'upcoming'
+    },
+    {
+        id: 'evt-taco-3',
+        title: "Taco Tuesday",
+        venueId: 'afterdark',
+        date: '2026-01-13T22:00:00',
+        lineup: ['TBD'],
         status: 'upcoming'
     }
 ];

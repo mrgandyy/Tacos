@@ -36,5 +36,14 @@ export const worlds: World[] = [
         bestFor: ['Chilling', 'Conversation', 'Lofi / House'],
         imageUrl: '/branding/logo-mark.png',
         color: '#FFFFFF'
+    },
+    {
+        id: 'the-hood',
+        name: "The Hood",
+        shortName: "The Hood",
+        description: "Street vibes and raw energy. The place for takeovers.",
+        bestFor: ['Hip Hop', 'Street', 'Takeovers'],
+        imageUrl: '/branding/logo-mark.png',
+        color: '#FF0000' // Red
     }
 ];
