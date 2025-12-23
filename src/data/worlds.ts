@@ -16,7 +16,7 @@ export const worlds: World[] = [
         shortName: "Afterdark",
         description: "The flagship club experience. Late-night dance floor, premium bar service, and top-tier DJs.",
         bestFor: ['Clubbing', 'Socializing', 'Top 40 / EDM'],
-        imageUrl: '/branding/logo-afterdark.png',
+        imageUrl: '/branding/thumbnail-afterdark.png',
         color: '#38D6FF' // Cyan
     },
     {
@@ -43,7 +43,7 @@ export const worlds: World[] = [
         shortName: "The Hood",
         description: "Street vibes and raw energy. The place for takeovers.",
         bestFor: ['Hip Hop', 'Street', 'Takeovers'],
-        imageUrl: '/branding/logo-mark.png',
+        imageUrl: '/branding/thumbnail-the-hood.jpg',
         color: '#FF0000' // Red
     }
 ];
