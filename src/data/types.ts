@@ -7,6 +7,7 @@ export interface World {
     imageUrl: string; // Placeholder or local asset path
     vrchatParams?: string; // Optional: launch params
     color: string; // Hex for accent
+    socialLink?: string; // Optional: External link (e.g. Discord)
 }
 
 export interface Event {

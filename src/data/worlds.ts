@@ -7,7 +7,7 @@ export const worlds: World[] = [
         shortName: "Underground",
         description: "Raw industrial energy. The bunker where the bass hits harder and the lights run red.",
         bestFor: ['Bass Music', 'Underground Vibes', 'High Energy'],
-        imageUrl: '/branding/logo-mark.png', // Temporary, ideally would be a screenshot
+        imageUrl: '/branding/tacos-underground.png',
         color: '#FF2D86' // Pink
     },
     {
@@ -20,21 +20,22 @@ export const worlds: World[] = [
         color: '#38D6FF' // Cyan
     },
     {
-        id: 'ascension',
-        name: "Taco's Ascension",
-        shortName: "Ascension",
-        description: "Immersive rave environment. Visuals that melt reality and sound that elevates.",
-        bestFor: ['Trance', 'Visual Trips', 'Peak Hours'],
-        imageUrl: '/branding/logo-mark.png',
-        color: '#7A3CFF' // Violet
+        id: 'alley-cat',
+        name: "The Alley Cat",
+        shortName: "Alley Cat",
+        description: "Secured by LOT1Z representing Viox. A hidden gem within the Alley Cat world.",
+        bestFor: ['Chill', 'Vibes', 'Social'],
+        imageUrl: '/branding/alley-cat.jpg',
+        color: '#FFD700', // Gold
+        socialLink: 'https://discord.gg/TFHAVSBcDM'
     },
     {
         id: 'afterparty',
-        name: "Taco's AfterParty",
-        shortName: "AfterParty",
+        name: "Taco's Afterparty",
+        shortName: "Afterparty",
         description: "The cooldown. Lounges, soft beats, and conversation as the sun comes up.",
         bestFor: ['Chilling', 'Conversation', 'Lofi / House'],
-        imageUrl: '/branding/logo-mark.png',
+        imageUrl: '/branding/tacos-afterparty.png',
         color: '#FFFFFF'
     },
     {
