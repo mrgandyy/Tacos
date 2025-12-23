@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { Container, Section } from "@/components/ui/Layout";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
@@ -98,6 +99,12 @@ export default function Home() {
                 glowColor={index % 2 === 0 ? "pink" : "cyan"}
               >
                 <div className="h-40 w-full bg-black relative">
+                  <Image
+                    src={world.imageUrl}
+                    alt={world.name}
+                    fill
+                    className="object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-300"
+                  />
                   <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white/10 via-transparent to-transparent opacity-50" />
                   {/* Glitch Overlay on Hover */}
                   <div className="absolute inset-0 bg-cyber-pink/20 mix-blend-overlay opacity-0 group-hover:opacity-100 transition-opacity" />
