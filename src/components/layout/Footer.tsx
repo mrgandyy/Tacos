@@ -31,7 +31,6 @@ export function Footer() {
                         <ul className="space-y-2 text-sm text-gray-400">
                             <li><Link href="/links" className="hover:text-brand-cyan transition-colors">Discord</Link></li>
                             <li><Link href="/links" className="hover:text-brand-cyan transition-colors">VRChat Group</Link></li>
-                            <li><Link href="/links" className="hover:text-brand-cyan transition-colors">Instagram</Link></li>
                         </ul>
                     </div>
 

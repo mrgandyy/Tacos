@@ -10,7 +10,7 @@ export const events: Event[] = [
         lineup: ['DJ Solstice', 'Neon Vixen', 'BassCannon'],
         status: 'upcoming',
         links: {
-            discord: 'https://discord.gg/placeholder'
+            discord: 'https://discord.gg/A4WbpKEWds'
         }
     },
     {
