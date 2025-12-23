@@ -20,6 +20,15 @@ export const worlds: World[] = [
         color: '#38D6FF' // Cyan
     },
     {
+        id: 'ascension',
+        name: "Taco's Ascension",
+        shortName: "Ascension",
+        description: "Immersive rave environment. Visuals that melt reality and sound that elevates.",
+        bestFor: ['Trance', 'Visual Trips', 'Peak Hours'],
+        imageUrl: '/branding/tacos-ascension.jpg',
+        color: '#7A3CFF' // Violet
+    },
+    {
         id: 'alley-cat',
         name: "The Alley Cat",
         shortName: "Alley Cat",
