@@ -9,7 +9,8 @@ import { GlitchText } from "@/components/ui/GlitchText";
 import { NeonContainer } from "@/components/ui/NeonContainer";
 import { worlds } from "@/data/worlds";
 import { events } from "@/data/events";
-import { ArrowRight, Calendar, Music, Zap, Skull, Radio } from "lucide-react";
+import { partners } from "@/data/partners";
+import { ArrowRight, Calendar, Music, Zap, Skull, Radio, ExternalLink } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function Home() {
@@ -92,50 +93,61 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {worlds.map((world, index) => (
-              <NeonContainer
-                key={world.id}
-                className="group p-0 overflow-hidden hover:scale-[1.03] transition-transform duration-300"
-                glowColor={index % 2 === 0 ? "pink" : "cyan"}
-              >
-                <div className="h-40 w-full bg-black relative">
-                  <Image
-                    src={world.imageUrl}
-                    alt={world.name}
-                    fill
-                    className="object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-300"
-                  />
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white/10 via-transparent to-transparent opacity-50" />
-                  {/* Glitch Overlay on Hover */}
-                  <div className="absolute inset-0 bg-cyber-pink/20 mix-blend-overlay opacity-0 group-hover:opacity-100 transition-opacity" />
+            {worlds.map((world, index) => {
+              const CardContent = (
+                <NeonContainer
+                  className="group p-0 overflow-hidden hover:scale-[1.03] transition-transform duration-300 h-full"
+                  glowColor={index % 2 === 0 ? "pink" : "cyan"}
+                >
+                  <div className="h-40 w-full bg-black relative">
+                    <Image
+                      src={world.imageUrl}
+                      alt={world.name}
+                      fill
+                      className="object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-300"
+                    />
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white/10 via-transparent to-transparent opacity-50" />
+                    {/* Glitch Overlay on Hover */}
+                    <div className="absolute inset-0 bg-cyber-pink/20 mix-blend-overlay opacity-0 group-hover:opacity-100 transition-opacity" />
 
-                  <div className="absolute top-4 right-4 z-10">
-                    <Badge className="bg-black/80 border border-cyber-cyan text-cyber-cyan text-[10px] backdrop-blur-md">
-                      {world.shortName}
-                    </Badge>
+                    <div className="absolute top-4 right-4 z-10">
+                      <Badge className="bg-black/80 border border-cyber-cyan text-cyber-cyan text-[10px] backdrop-blur-md">
+                        {world.shortName}
+                      </Badge>
+                    </div>
                   </div>
+
+                  <div className="p-6 space-y-4">
+                    <div>
+                      <h3 className="text-xl font-bold text-white group-hover:text-cyber-pink transition-colors">{world.name}</h3>
+                      <div className="w-12 h-1 bg-cyber-cyan mt-2" />
+                    </div>
+
+                    <p className="text-sm text-gray-400 line-clamp-2">
+                      {world.description}
+                    </p>
+
+                    <div className="flex flex-wrap gap-2 pt-2">
+                      {world.bestFor.slice(0, 2).map(tag => (
+                        <span key={tag} className="text-[10px] uppercase text-gray-500 border border-white/10 px-2 py-1">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </NeonContainer>
+              );
+
+              return world.socialLink ? (
+                <Link key={world.id} href={world.socialLink} target="_blank" rel="noopener noreferrer" className="block h-full">
+                  {CardContent}
+                </Link>
+              ) : (
+                <div key={world.id} className="h-full">
+                  {CardContent}
                 </div>
-
-                <div className="p-6 space-y-4">
-                  <div>
-                    <h3 className="text-xl font-bold text-white group-hover:text-cyber-pink transition-colors">{world.name}</h3>
-                    <div className="w-12 h-1 bg-cyber-cyan mt-2" />
-                  </div>
-
-                  <p className="text-sm text-gray-400 line-clamp-2">
-                    {world.description}
-                  </p>
-
-                  <div className="flex flex-wrap gap-2 pt-2">
-                    {world.bestFor.slice(0, 2).map(tag => (
-                      <span key={tag} className="text-[10px] uppercase text-gray-500 border border-white/10 px-2 py-1">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </NeonContainer>
-            ))}
+              );
+            })}
           </div>
         </Container>
       </Section>
@@ -214,6 +226,56 @@ export default function Home() {
                 </div>
               </NeonContainer>
             </div>
+          </div>
+        </Container>
+      </Section>
+
+      {/* Partners Section */}
+      <Section className="relative border-t border-white/5 bg-black/40">
+        <Container>
+          <div className="text-center mb-12 space-y-4">
+            <h2 className="text-4xl font-bold text-white flex items-center justify-center gap-4">
+              <span className="text-cyber-cyan">OUR</span> PARTNERS
+            </h2>
+            <div className="h-1 w-20 bg-cyber-pink mx-auto" />
+            <p className="text-gray-400 max-w-2xl mx-auto">
+              Powering the experience with industry-leading hardware and accessories.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            {partners.map((partner) => (
+              <NeonContainer key={partner.id} glowColor="cyan" className="group h-full flex flex-col">
+                <div className="relative h-48 w-full bg-white/5 p-8 flex items-center justify-center overflow-hidden">
+                  {/* Background glow */}
+                  <div className="absolute inset-0 bg-cyber-cyan/5 group-hover:bg-cyber-cyan/10 transition-colors" />
+
+                  <div className="relative z-10 w-full h-full">
+                    <Image
+                      src={partner.imageUrl}
+                      alt={partner.name}
+                      fill
+                      className="object-contain p-4 group-hover:scale-105 transition-transform duration-500"
+                    />
+                  </div>
+                </div>
+
+                <div className="p-8 flex-1 flex flex-col space-y-4 bg-black/40 backdrop-blur-sm">
+                  <h3 className="text-2xl font-bold text-white group-hover:text-cyber-cyan transition-colors">
+                    {partner.name}
+                  </h3>
+                  <p className="text-gray-400 leading-relaxed flex-1">
+                    {partner.description}
+                  </p>
+
+                  <Button variant="outline" className="w-full border-white/20 hover:border-cyber-cyan hover:bg-cyber-cyan/10 group-hover:border-cyber-cyan/50" asChild>
+                    <Link href={partner.url} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2">
+                      VISIT STORE <ExternalLink className="w-4 h-4" />
+                    </Link>
+                  </Button>
+                </div>
+              </NeonContainer>
+            ))}
           </div>
         </Container>
       </Section>

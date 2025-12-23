@@ -39,3 +39,11 @@ export interface SocialLink {
     icon?: string; // Lucide icon name or similar
     color?: string;
 }
+
+export interface Partner {
+    id: string;
+    name: string;
+    description: string;
+    url: string;
+    imageUrl: string;
+}

@@ -65,10 +65,19 @@ export default function WorldsPage() {
                                     </div>
 
                                     <div className="flex gap-4 pt-2">
-                                        <Button variant="solid" className="gap-2" style={{ backgroundColor: world.color === '#FFFFFF' ? '#e5e5e5' : world.color, color: world.color === '#FFFFFF' ? 'black' : 'white' }}>
-                                            <ExternalLink className="w-4 h-4" />
-                                            Launch World
-                                        </Button>
+                                        {world.socialLink ? (
+                                            <Button variant="solid" className="gap-2" style={{ backgroundColor: world.color === '#FFFFFF' ? '#e5e5e5' : world.color, color: world.color === '#FFFFFF' ? 'black' : 'white' }} asChild>
+                                                <Link href={world.socialLink} target="_blank" rel="noopener noreferrer">
+                                                    <ExternalLink className="w-4 h-4" />
+                                                    Launch World
+                                                </Link>
+                                            </Button>
+                                        ) : (
+                                            <Button variant="solid" className="gap-2" style={{ backgroundColor: world.color === '#FFFFFF' ? '#e5e5e5' : world.color, color: world.color === '#FFFFFF' ? 'black' : 'white' }}>
+                                                <ExternalLink className="w-4 h-4" />
+                                                Launch World
+                                            </Button>
+                                        )}
                                         <Button variant="ghost">
                                             Gallery (Coming Soon)
                                         </Button>
