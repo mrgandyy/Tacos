@@ -1,72 +1,101 @@
+'use client'
+
 import { submitApplication } from '@/app/actions/application'
 import { Button } from '@/components/ui/Button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card'
-import { Disc, Users } from 'lucide-react'
-import { createClient } from '@/lib/supabase/server'
-import { redirect } from 'next/navigation'
+import { Disc, Users, ArrowLeft } from 'lucide-react'
+import { createClient } from '@/lib/supabase/client'
+import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
+import { DJApplicationForm } from '@/components/forms/DJApplicationForm'
 
-export default async function ApplyPage() {
-    const supabase = await createClient()
-    const { data: { user } } = await supabase.auth.getUser()
+export default function ApplyPage() {
+    const [selectedRole, setSelectedRole] = useState<'dj' | 'partner' | null>(null)
+    const [loading, setLoading] = useState(true)
+    const router = useRouter()
+    const supabase = createClient()
 
-    if (!user) {
-        redirect('/login')
-    }
+    useEffect(() => {
+        async function checkAuth() {
+            const { data: { user } } = await supabase.auth.getUser()
+            if (!user) {
+                router.push('/login')
+                return
+            }
 
-    // Check if already applied
-    const { data: profile } = await supabase
-        .from('profiles')
-        .select('application_status')
-        .eq('id', user.id)
-        .single()
+            const { data: profile } = await supabase
+                .from('profiles')
+                .select('application_status')
+                .eq('id', user.id)
+                .single()
 
-    if (profile?.application_status !== 'none') {
-        redirect('/dashboard')
-    }
+            if (profile?.application_status !== 'none') {
+                router.push('/dashboard')
+            }
+            setLoading(false)
+        }
+        checkAuth()
+    }, [router, supabase])
+
+    if (loading) return <div className="min-h-screen bg-zinc-950 flex items-center justify-center text-white">Loading...</div>
 
     return (
         <div className="min-h-screen flex items-center justify-center p-4 bg-zinc-950 text-white">
             <Card className="w-full max-w-2xl bg-zinc-900 border-zinc-800">
-                <CardHeader className="text-center">
+                <CardHeader className="text-center relative">
+                    {selectedRole === 'dj' && (
+                        <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => setSelectedRole(null)}
+                            className="absolute left-6 top-6 text-zinc-400 hover:text-white"
+                        >
+                            <ArrowLeft className="w-6 h-6" />
+                        </Button>
+                    )}
+
                     <CardTitle className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">
-                        Join the Party
+                        {selectedRole === 'dj' ? 'DJ Application' : 'Join the Party'}
                     </CardTitle>
                     <CardDescription className="text-zinc-400 text-lg">
-                        Choose how you want to contribute to the Tacos ecosystem
+                        {selectedRole === 'dj' ? 'Tell us about your sound' : 'Choose how you want to contribute to the Tacos ecosystem'}
                     </CardDescription>
                 </CardHeader>
-                <CardContent className="grid md:grid-cols-2 gap-6 pt-6">
-                    <form action={submitApplication} className="contents">
-                        <input type="hidden" name="type" value="dj" />
-                        <button
-                            type="submit"
-                            className="group relative flex flex-col items-center p-6 rounded-xl border-2 border-zinc-800 hover:border-purple-500 bg-zinc-950/50 hover:bg-zinc-900 transition-all duration-300 text-left"
-                        >
-                            <div className="p-4 rounded-full bg-purple-500/10 text-purple-400 mb-4 group-hover:scale-110 transition-transform">
-                                <Disc className="w-8 h-8" />
-                            </div>
-                            <h3 className="text-xl font-semibold mb-2 text-white">Community DJ</h3>
-                            <p className="text-sm text-zinc-400">
-                                Showcase your sets, get booked for events, and build your following in the VRChat scene.
-                            </p>
-                        </button>
-                    </form>
+                <CardContent className="pt-6">
+                    {selectedRole === 'dj' ? (
+                        <DJApplicationForm />
+                    ) : (
+                        <div className="grid md:grid-cols-2 gap-6">
+                            <button
+                                onClick={() => setSelectedRole('dj')}
+                                className="group relative flex flex-col items-center p-6 rounded-xl border-2 border-zinc-800 hover:border-purple-500 bg-zinc-950/50 hover:bg-zinc-900 transition-all duration-300 text-left"
+                            >
+                                <div className="p-4 rounded-full bg-purple-500/10 text-purple-400 mb-4 group-hover:scale-110 transition-transform">
+                                    <Disc className="w-8 h-8" />
+                                </div>
+                                <h3 className="text-xl font-semibold mb-2 text-white">Community DJ</h3>
+                                <p className="text-sm text-zinc-400">
+                                    Showcase your sets, get booked for events, and build your following in the VRChat scene.
+                                </p>
+                            </button>
 
-                    <form action={submitApplication} className="contents">
-                        <input type="hidden" name="type" value="partner" />
-                        <button
-                            type="submit"
-                            className="group relative flex flex-col items-center p-6 rounded-xl border-2 border-zinc-800 hover:border-pink-500 bg-zinc-950/50 hover:bg-zinc-900 transition-all duration-300 text-left"
-                        >
-                            <div className="p-4 rounded-full bg-pink-500/10 text-pink-400 mb-4 group-hover:scale-110 transition-transform">
-                                <Users className="w-8 h-8" />
-                            </div>
-                            <h3 className="text-xl font-semibold mb-2 text-white">Partnered Group</h3>
-                            <p className="text-sm text-zinc-400">
-                                List your community, manage events, and grow your audience with Tacos partnership.
-                            </p>
-                        </button>
-                    </form>
+                            <form action={submitApplication} className="contents">
+                                <input type="hidden" name="type" value="partner" />
+                                <button
+                                    type="submit"
+                                    className="group relative flex flex-col items-center p-6 rounded-xl border-2 border-zinc-800 hover:border-pink-500 bg-zinc-950/50 hover:bg-zinc-900 transition-all duration-300 text-left"
+                                >
+                                    <div className="p-4 rounded-full bg-pink-500/10 text-pink-400 mb-4 group-hover:scale-110 transition-transform">
+                                        <Users className="w-8 h-8" />
+                                    </div>
+                                    <h3 className="text-xl font-semibold mb-2 text-white">Partnered Group</h3>
+                                    <p className="text-sm text-zinc-400">
+                                        List your community, manage events, and grow your audience with Tacos partnership.
+                                    </p>
+                                </button>
+                            </form>
+                        </div>
+                    )}
                 </CardContent>
             </Card>
 

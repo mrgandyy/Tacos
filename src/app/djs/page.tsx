@@ -4,7 +4,7 @@ import { GlitchText } from '@/components/ui/GlitchText'
 import { NeonContainer } from '@/components/ui/NeonContainer'
 import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
-import { User, Music, ExternalLink, Disc, AudioWaveform, Headphones } from 'lucide-react'
+import { User, Music, ExternalLink, Disc, AudioWaveform, Headphones, Twitter, MessageSquare, Music2 } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
 
@@ -74,13 +74,13 @@ export default async function DJsPage() {
                                         </Badge>
 
                                         {dj.bio && (
-                                            <p className="text-sm text-zinc-500 line-clamp-3 mb-6 italic">
+                                            <p className="text-sm text-zinc-400 line-clamp-4 mb-6 italic leading-relaxed">
                                                 "{dj.bio}"
                                             </p>
                                         )}
 
                                         <div className="mt-auto w-full space-y-4">
-                                            <div className="flex flex-wrap gap-2 justify-center">
+                                            <div className="flex flex-wrap gap-2 justify-center mb-4">
                                                 {dj.genres?.slice(0, 3).map((genre: string) => (
                                                     <span key={genre} className="text-[10px] uppercase text-cyber-cyan border border-cyber-cyan/20 px-2 py-1 rounded bg-cyber-cyan/5">
                                                         {genre}
@@ -88,8 +88,32 @@ export default async function DJsPage() {
                                                 ))}
                                             </div>
 
+                                            {/* Social Links */}
+                                            <div className="flex items-center justify-center gap-4 mb-4">
+                                                {dj.socials?.soundcloud && (
+                                                    <a href={dj.socials.soundcloud} target="_blank" rel="noopener noreferrer" className="text-zinc-500 hover:text-[#ff7700] transition-colors">
+                                                        <Music2 className="w-5 h-5" />
+                                                    </a>
+                                                )}
+                                                {dj.socials?.twitter && (
+                                                    <a href={dj.socials.twitter} target="_blank" rel="noopener noreferrer" className="text-zinc-500 hover:text-[#1DA1F2] transition-colors">
+                                                        <Twitter className="w-5 h-5" />
+                                                    </a>
+                                                )}
+                                                {dj.socials?.discord && (
+                                                    <div className="group/discord relative">
+                                                        <div className="text-zinc-500 hover:text-[#5865F2] cursor-help transition-colors">
+                                                            <MessageSquare className="w-5 h-5" />
+                                                        </div>
+                                                        <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 bg-zinc-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover/discord:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                                                            {dj.socials.discord}
+                                                        </div>
+                                                    </div>
+                                                )}
+                                            </div>
+
                                             <Button asChild variant="ghost" className="w-full border border-white/5 hover:bg-white/5 hover:text-white transition-all text-zinc-400 text-xs uppercase tracking-wider h-10">
-                                                <Link href={`https://vrchat.com/home/user/${dj.id}`} target="_blank">
+                                                <Link href={dj.socials?.vrc || `https://vrchat.com/home/user/${dj.id}`} target="_blank">
                                                     Connect Signal <ExternalLink className="w-3 h-3 ml-2 opacity-50" />
                                                 </Link>
                                             </Button>

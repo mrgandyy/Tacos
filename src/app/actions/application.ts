@@ -17,12 +17,33 @@ export async function submitApplication(formData: FormData) {
         throw new Error('Invalid application type')
     }
 
+    // Extract extended profile data
+    const bio = formData.get('bio') as string
+    const genresRaw = formData.get('genres') as string
+    const genres = genresRaw ? genresRaw.split(',').map(g => g.trim()).filter(Boolean) : []
+
+    // Socials
+    const soundcloud = formData.get('soundcloud') as string
+    const twitter = formData.get('twitter') as string
+    const discord = formData.get('discord') as string
+    const vrc = formData.get('vrc') as string
+
+    const socials = {
+        soundcloud,
+        twitter,
+        discord,
+        vrc
+    }
+
     const { error } = await supabase
         .from('profiles')
         .update({
             role: 'applicant',
             application_status: 'pending',
             application_type: type,
+            bio: bio,
+            genres: genres,
+            socials: socials,
             updated_at: new Date().toISOString(),
         })
         .eq('id', user.id)
