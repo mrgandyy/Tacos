@@ -152,6 +152,35 @@ export default function Home() {
         </Container>
       </Section>
 
+      {/* Community Section */}
+      <Section className="relative bg-black/40 border-y border-white/5">
+        <Container>
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="relative group overflow-hidden rounded-2xl border border-white/10 hover:border-cyber-pink/50 transition-colors">
+              <div className="absolute inset-0 bg-gradient-to-br from-cyber-pink/20 to-transparent opacity-50" />
+              <div className="p-8 relative z-10">
+                <h3 className="text-2xl font-bold text-white mb-2">COMMUNITY <span className="text-cyber-pink">DJs</span></h3>
+                <p className="text-gray-400 mb-6">Explore the roster of resident and guest audio architects.</p>
+                <Button variant="solid" className="bg-cyber-pink text-white hover:bg-cyber-pink/80" asChild>
+                  <Link href="/djs">VIEW ROSTER</Link>
+                </Button>
+              </div>
+            </div>
+
+            <div className="relative group overflow-hidden rounded-2xl border border-white/10 hover:border-cyber-green/50 transition-colors">
+              <div className="absolute inset-0 bg-gradient-to-br from-cyber-green/20 to-transparent opacity-50" />
+              <div className="p-8 relative z-10">
+                <h3 className="text-2xl font-bold text-white mb-2">PARTNERED <span className="text-cyber-green">GROUPS</span></h3>
+                <p className="text-gray-400 mb-6">Discover the clubs and communities powering the circuit.</p>
+                <Button variant="solid" className="bg-cyber-green text-black hover:bg-cyber-green/80" asChild>
+                  <Link href="/partners">BROWSE GROUPS</Link>
+                </Button>
+              </div>
+            </div>
+          </div>
+        </Container>
+      </Section>
+
       {/* Next Event / Feature */}
       <Section className="relative overflow-hidden">
         {/* Decorative elements */}
