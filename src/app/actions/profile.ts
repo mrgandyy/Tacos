@@ -11,6 +11,7 @@ export async function updateProfile(formData: FormData) {
 
     const bio = formData.get('bio') as string
     const genres = (formData.get('genres') as string).split(',').map(g => g.trim()).filter(Boolean)
+    const avatar_url = formData.get('avatar_url') as string
 
     // Socials
     const soundcloud = formData.get('soundcloud') as string
@@ -30,6 +31,7 @@ export async function updateProfile(formData: FormData) {
         .update({
             bio,
             genres,
+            avatar_url,
             socials,
             updated_at: new Date().toISOString()
         })

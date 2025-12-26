@@ -9,9 +9,11 @@ import { Label } from '@/components/ui/label'
 import { Switch } from '@/components/ui/switch'
 import { updateProfile, toggleVisibility } from '@/app/actions/profile'
 import { Loader2, Music2, Twitter, MessageSquare, Gamepad2 } from 'lucide-react'
+import { AvatarUpload } from './AvatarUpload'
 
 export function ProfileEditor({ profile }: { profile: any }) {
     const [loading, setLoading] = useState(false)
+    const [avatarUrl, setAvatarUrl] = useState(profile.avatar_url || '')
 
     async function onSubmit(formData: FormData) {
         setLoading(true)
@@ -44,6 +46,10 @@ export function ProfileEditor({ profile }: { profile: any }) {
                 </CardHeader>
                 <CardContent>
                     <form action={onSubmit} className="space-y-6">
+                        <div className="flex justify-center mb-6">
+                            <AvatarUpload value={avatarUrl} onChange={setAvatarUrl} />
+                        </div>
+
                         <div className="space-y-2">
                             <Label htmlFor="bio">Bio</Label>
                             <Textarea
