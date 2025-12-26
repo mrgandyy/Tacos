@@ -8,7 +8,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
 import { Switch } from '@/components/ui/switch'
 import { updateProfile, toggleVisibility } from '@/app/actions/profile'
-import { Loader2 } from 'lucide-react'
+import { Loader2, Music2, Twitter, MessageSquare, Gamepad2 } from 'lucide-react'
 
 export function ProfileEditor({ profile }: { profile: any }) {
     const [loading, setLoading] = useState(false)
@@ -43,7 +43,7 @@ export function ProfileEditor({ profile }: { profile: any }) {
                     <CardDescription>Update your public information</CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <form action={onSubmit} className="space-y-4">
+                    <form action={onSubmit} className="space-y-6">
                         <div className="space-y-2">
                             <Label htmlFor="bio">Bio</Label>
                             <Textarea
@@ -66,24 +66,48 @@ export function ProfileEditor({ profile }: { profile: any }) {
                             />
                         </div>
 
-                        <div className="grid md:grid-cols-2 gap-4">
-                            <div className="space-y-2">
-                                <Label htmlFor="discord">Discord Username</Label>
-                                <Input
-                                    id="discord"
-                                    name="discord"
-                                    defaultValue={profile.socials?.discord}
-                                    className="bg-zinc-950 border-zinc-800"
-                                />
-                            </div>
-                            <div className="space-y-2">
-                                <Label htmlFor="twitter">Twitter/X (Optional)</Label>
-                                <Input
-                                    id="twitter"
-                                    name="twitter"
-                                    defaultValue={profile.socials?.twitter}
-                                    className="bg-zinc-950 border-zinc-800"
-                                />
+                        <div className="space-y-4">
+                            <h3 className="text-sm font-semibold text-zinc-400">Social Presence</h3>
+                            <div className="grid gap-4">
+                                <div className="relative">
+                                    <Music2 className="absolute left-3 top-3 h-4 w-4 text-orange-500" />
+                                    <Input
+                                        name="soundcloud"
+                                        defaultValue={profile.socials?.soundcloud}
+                                        placeholder="SoundCloud URL"
+                                        className="pl-9 bg-zinc-950/50 border-zinc-800 focus:ring-orange-500/50"
+                                    />
+                                </div>
+
+                                <div className="relative">
+                                    <Twitter className="absolute left-3 top-3 h-4 w-4 text-blue-400" />
+                                    <Input
+                                        name="twitter"
+                                        defaultValue={profile.socials?.twitter}
+                                        placeholder="Twitter / X URL"
+                                        className="pl-9 bg-zinc-950/50 border-zinc-800 focus:ring-blue-500/50"
+                                    />
+                                </div>
+
+                                <div className="relative">
+                                    <MessageSquare className="absolute left-3 top-3 h-4 w-4 text-indigo-400" />
+                                    <Input
+                                        name="discord"
+                                        defaultValue={profile.socials?.discord}
+                                        placeholder="Discord Username"
+                                        className="pl-9 bg-zinc-950/50 border-zinc-800 focus:ring-indigo-500/50"
+                                    />
+                                </div>
+
+                                <div className="relative">
+                                    <Gamepad2 className="absolute left-3 top-3 h-4 w-4 text-teal-400" />
+                                    <Input
+                                        name="vrc"
+                                        defaultValue={profile.socials?.vrc}
+                                        placeholder="VRChat Profile URL"
+                                        className="pl-9 bg-zinc-950/50 border-zinc-800 focus:ring-teal-500/50"
+                                    />
+                                </div>
                             </div>
                         </div>
 

@@ -11,14 +11,18 @@ export async function updateProfile(formData: FormData) {
 
     const bio = formData.get('bio') as string
     const genres = (formData.get('genres') as string).split(',').map(g => g.trim()).filter(Boolean)
-    const discord = formData.get('discord') as string
+
+    // Socials
+    const soundcloud = formData.get('soundcloud') as string
     const twitter = formData.get('twitter') as string
-    const vrcParams = formData.get('vrcParams') as string
+    const discord = formData.get('discord') as string
+    const vrc = formData.get('vrc') as string
 
     const socials = {
-        discord,
+        soundcloud,
         twitter,
-        vrcParams
+        discord,
+        vrc
     }
 
     const { error } = await supabase
