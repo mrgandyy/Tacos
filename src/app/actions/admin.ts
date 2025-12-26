@@ -58,3 +58,88 @@ export async function manageApplication(userId: string, status: 'approved' | 're
 
     revalidatePath('/admin')
 }
+
+export async function getUsers() {
+    const supabase = await createClient()
+
+    // Verify Admin
+    const { data: { user } } = await supabase.auth.getUser()
+    if (!user) throw new Error('Unauthorized')
+
+    const { data: adminProfile } = await supabase
+        .from('profiles')
+        .select('role')
+        .eq('id', user.id)
+        .single()
+
+    if (adminProfile?.role !== 'admin') {
+        throw new Error('Unauthorized: Admin only')
+    }
+
+    const { data: users, error } = await supabase
+        .from('profiles')
+        .select(`
+            *,
+            partnered_groups (
+                id,
+                name,
+                application_status
+            )
+        `)
+        .order('username', { ascending: true })
+
+    if (error) throw new Error(error.message)
+    return users
+}
+
+export async function updateUserRole(userId: string, role: string) {
+    const supabase = await createClient()
+
+    // Verify Admin
+    const { data: { user } } = await supabase.auth.getUser()
+    if (!user) throw new Error('Unauthorized')
+
+    const { data: adminProfile } = await supabase
+        .from('profiles')
+        .select('role')
+        .eq('id', user.id)
+        .single()
+
+    if (adminProfile?.role !== 'admin') {
+        throw new Error('Unauthorized: Admin only')
+    }
+
+    const { error } = await supabase
+        .from('profiles')
+        .update({ role, updated_at: new Date().toISOString() })
+        .eq('id', userId)
+
+    if (error) throw new Error('Failed to update role')
+    revalidatePath('/admin')
+}
+
+export async function deleteUserProfile(userId: string) {
+    const supabase = await createClient()
+
+    // Verify Admin
+    const { data: { user } } = await supabase.auth.getUser()
+    if (!user) throw new Error('Unauthorized')
+
+    const { data: adminProfile } = await supabase
+        .from('profiles')
+        .select('role')
+        .eq('id', user.id)
+        .single()
+
+    if (adminProfile?.role !== 'admin') {
+        throw new Error('Unauthorized: Admin only')
+    }
+
+    const { error } = await supabase
+        .from('profiles')
+        .delete()
+        .eq('id', userId)
+
+    if (error) throw new Error('Failed to delete profile')
+    revalidatePath('/admin')
+}

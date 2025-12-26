@@ -5,6 +5,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { ApplicationQueue } from '@/components/admin/ApplicationQueue'
 import { EventsList } from '@/components/admin/EventsList'
+import { UserManagement } from '@/components/admin/UserManagement'
+import { getUsers } from '@/app/actions/admin'
 
 export default async function AdminPage() {
     const supabase = await createClient()
@@ -28,6 +30,9 @@ export default async function AdminPage() {
         .select('*')
         .eq('application_status', 'pending')
         .order('updated_at', { ascending: false })
+
+    // Fetch All Users
+    const users = await getUsers()
 
     return (
         <div className="container mx-auto p-6 space-y-8">
@@ -58,7 +63,7 @@ export default async function AdminPage() {
                 </TabsContent>
 
                 <TabsContent value="users">
-                    <div className="p-4 text-zinc-400">User management coming soon...</div>
+                    <UserManagement users={users || []} />
                 </TabsContent>
 
                 <TabsContent value="events">
