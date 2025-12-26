@@ -93,7 +93,7 @@ export function EventForm({ initialData }: { initialData?: any }) {
     };
 
     const removeTag = (tagToRemove: string) => {
-        setFormData(prev => ({ ...prev, tags: prev.tags.filter(t => t !== tagToRemove) }));
+        setFormData(prev => ({ ...prev, tags: prev.tags.filter((t: string) => t !== tagToRemove) }));
     };
 
     return (
