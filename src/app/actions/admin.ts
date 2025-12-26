@@ -143,3 +143,34 @@ export async function deleteUserProfile(userId: string) {
     if (error) throw new Error('Failed to delete profile')
     revalidatePath('/admin')
 }
+
+export async function manageGroupApplication(groupId: string, status: 'approved' | 'rejected') {
+    const supabase = await createClient()
+
+    // Verify Admin
+    const { data: { user } } = await supabase.auth.getUser()
+    if (!user) throw new Error('Unauthorized')
+
+    const { data: adminProfile } = await supabase
+        .from('profiles')
+        .select('role')
+        .eq('id', user.id)
+        .single()
+
+    if (adminProfile?.role !== 'admin') {
+        throw new Error('Unauthorized: Admin only')
+    }
+
+    const { error } = await supabase
+        .from('partnered_groups')
+        .update({
+            application_status: status,
+            updated_at: new Date().toISOString()
+        })
+        .eq('id', groupId)
+
+    if (error) throw new Error('Failed to update group application')
+
+    revalidatePath('/admin')
+    revalidatePath('/partners')
+}

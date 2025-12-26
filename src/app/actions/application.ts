@@ -48,6 +48,13 @@ export async function submitApplication(formData: FormData) {
         })
         .eq('id', user.id)
 
+    // If partner, ensure they have a group placeholder or handle it in dashboard
+    if (type === 'partner') {
+        // We do NOT create a group here because we don't have the name yet.
+        // The user flow expects them to create it later?
+        // Issue: "Pending" on user side might actally mean "Profile Pending".
+    }
+
     if (error) {
         console.error('Application error:', error)
         throw new Error('Failed to submit application')

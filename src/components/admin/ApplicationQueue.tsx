@@ -1,22 +1,113 @@
 'use client'
 
-import { manageApplication } from '@/app/actions/admin'
+import { manageApplication, manageGroupApplication } from '@/app/actions/admin' // Added import
 import { Button } from '@/components/ui/Button'
 import { Card, CardContent } from '@/components/ui/Card'
-import { Check, X } from 'lucide-react'
+import { Check, X, Users } from 'lucide-react'
 import { useState } from 'react'
 import { Badge } from '@/components/ui/Badge'
+import Image from 'next/image'
 
-export function ApplicationQueue({ applications }: { applications: any[] }) {
-    if (applications.length === 0) {
+export function ApplicationQueue({ applications, groupApplications = [] }: { applications: any[], groupApplications?: any[] }) {
+    if (applications.length === 0 && groupApplications.length === 0) {
         return <div className="text-center py-8 text-zinc-500">No pending applications</div>
     }
 
     return (
-        <div className="space-y-4">
-            {applications.map((app) => (
-                <ApplicationItem key={app.id} application={app} />
-            ))}
+        <div className="space-y-8">
+            {applications.length > 0 && (
+                <div className="space-y-4">
+                    <h3 className="text-sm font-semibold text-zinc-500 uppercase tracking-wider">User Applications</h3>
+                    {applications.map((app) => (
+                        <ApplicationItem key={app.id} application={app} />
+                    ))}
+                </div>
+            )}
+
+            {groupApplications.length > 0 && (
+                <div className="space-y-4">
+                    <h3 className="text-sm font-semibold text-zinc-500 uppercase tracking-wider">Group Applications</h3>
+                    {groupApplications.map((app) => (
+                        <GroupApplicationItem key={app.id} application={app} />
+                    ))}
+                </div>
+            )}
+        </div>
+    )
+}
+
+function GroupApplicationItem({ application }: { application: any }) {
+    const [loading, setLoading] = useState(false)
+    const [expanded, setExpanded] = useState(false)
+
+    const handleAction = async (status: 'approved' | 'rejected') => {
+        setLoading(true)
+        try {
+            await manageGroupApplication(application.id, status)
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    return (
+        <div className="bg-zinc-950 rounded-lg border border-zinc-800 overflow-hidden">
+            <div className="p-4 flex items-center justify-between">
+                <div
+                    className="flex-1 cursor-pointer"
+                    onClick={() => setExpanded(!expanded)}
+                >
+                    <div className="flex items-center gap-2">
+                        <Users className="w-4 h-4 text-cyber-cyan" />
+                        <h3 className="font-semibold text-white">{application.name}</h3>
+                        <Badge variant="outline" className="border-cyber-cyan/50 text-cyber-cyan">
+                            Partner Group
+                        </Badge>
+                    </div>
+                    <p className="text-sm text-zinc-400">
+                        {application.description ? application.description.slice(0, 50) + '...' : 'No description'}
+                    </p>
+                </div>
+
+                <div className="flex gap-2">
+                    <Button
+                        size="sm"
+                        variant="outline"
+                        className="hover:bg-red-500/10 hover:text-red-500 hover:border-red-500/50"
+                        onClick={() => handleAction('rejected')}
+                        disabled={loading}
+                    >
+                        <X className="w-4 h-4" />
+                    </Button>
+                    <Button
+                        size="sm"
+                        className="bg-green-600 hover:bg-green-700 text-white"
+                        onClick={() => handleAction('approved')}
+                        disabled={loading}
+                    >
+                        <Check className="w-4 h-4" />
+                    </Button>
+                </div>
+            </div>
+
+            {expanded && (
+                <div className="px-4 pb-4 border-t border-zinc-800 pt-4 bg-zinc-900/50 space-y-4">
+                    {application.logo_url && (
+                        <div className="relative w-full h-32 bg-black rounded-md overflow-hidden">
+                            <Image src={application.logo_url} alt={application.name} fill className="object-cover" />
+                        </div>
+                    )}
+                    <div>
+                        <h4 className="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-1">Description</h4>
+                        <p className="text-zinc-300">{application.description}</p>
+                    </div>
+                    {application.social_link && (
+                        <div>
+                            <h4 className="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-1">Social</h4>
+                            <a href={application.social_link} target="_blank" className="text-cyber-cyan hover:underline">{application.social_link}</a>
+                        </div>
+                    )}
+                </div>
+            )}
         </div>
     )
 }

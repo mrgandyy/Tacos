@@ -31,6 +31,13 @@ export default async function AdminPage() {
         .eq('application_status', 'pending')
         .order('updated_at', { ascending: false })
 
+    // Fetch Pending Group Applications
+    const { data: groupApplications } = await supabase
+        .from('partnered_groups')
+        .select('*')
+        .eq('application_status', 'pending')
+        .order('updated_at', { ascending: false })
+
     // Fetch All Users
     const users = await getUsers()
 
@@ -57,7 +64,10 @@ export default async function AdminPage() {
                             </CardDescription>
                         </CardHeader>
                         <CardContent>
-                            <ApplicationQueue applications={applications || []} />
+                            <ApplicationQueue
+                                applications={applications || []}
+                                groupApplications={groupApplications || []}
+                            />
                         </CardContent>
                     </Card>
                 </TabsContent>
