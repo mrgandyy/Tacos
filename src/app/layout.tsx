@@ -22,7 +22,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: "Taco's Nightlife | VRChat Circuit",
   description: "A connected series of worlds. Coordinated events. Tradition built after dark.",
-  metadataBase: new URL('https://tacos-nightlife.vercel.app'), // Best practice to set a base, using generic for now or local
+  metadataBase: new URL('https://www.tacosvr.chat'),
   openGraph: {
     title: "Taco's Nightlife | VRChat Circuit",
     description: "A connected series of worlds. Coordinated events. Tradition built after dark.",
