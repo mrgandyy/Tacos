@@ -9,6 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Badge } from "@/components/ui/Badge";
 import { Loader2, Save, Users, Zap } from "lucide-react";
 import { updateGroup } from "@/app/actions/groups";
+import { AvatarUpload } from "./AvatarUpload";
 
 export function GroupEditor({ group }: { group: any }) {
     const [submitting, setSubmitting] = useState(false);
@@ -19,7 +20,8 @@ export function GroupEditor({ group }: { group: any }) {
         name: group.name || "",
         description: group.description || "",
         logo_url: group.logo_url || "",
-        social_link: group.social_link || ""
+        social_link: group.social_link || "",
+        discord_link: group.discord_link || ""
     });
 
     const isApproved = group.application_status === 'approved';
@@ -62,6 +64,16 @@ export function GroupEditor({ group }: { group: any }) {
             </CardHeader>
             <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-4">
+                    <div className="flex justify-center mb-6">
+                        <div className="text-center space-y-2">
+                            <Label>Group Logo</Label>
+                            <AvatarUpload
+                                value={formData.logo_url}
+                                onChange={(url) => setFormData(prev => ({ ...prev, logo_url: url }))}
+                            />
+                        </div>
+                    </div>
+
                     <div className="space-y-2">
                         <Label>Group Name</Label>
                         <Input
@@ -82,19 +94,21 @@ export function GroupEditor({ group }: { group: any }) {
 
                     <div className="grid grid-cols-2 gap-4">
                         <div className="space-y-2">
-                            <Label>Logo URL</Label>
-                            <Input
-                                value={formData.logo_url}
-                                onChange={e => setFormData({ ...formData, logo_url: e.target.value })}
-                                className="bg-black/50 border-zinc-700"
-                            />
-                        </div>
-                        <div className="space-y-2">
-                            <Label>Social Link</Label>
+                            <Label>Social/Website Link</Label>
                             <Input
                                 value={formData.social_link}
                                 onChange={e => setFormData({ ...formData, social_link: e.target.value })}
                                 className="bg-black/50 border-zinc-700"
+                                placeholder="https://..."
+                            />
+                        </div>
+                        <div className="space-y-2">
+                            <Label>Discord Invite</Label>
+                            <Input
+                                value={formData.discord_link}
+                                onChange={e => setFormData({ ...formData, discord_link: e.target.value })}
+                                className="bg-black/50 border-zinc-700"
+                                placeholder="https://discord.gg/..."
                             />
                         </div>
                     </div>

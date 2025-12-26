@@ -70,6 +70,7 @@ export async function updateGroup(id: string, formData: any) {
             description: formData.description,
             logo_url: formData.logo_url,
             social_link: formData.social_link,
+            discord_link: formData.discord_link,
             updated_at: new Date().toISOString()
         })
         .eq('id', id)

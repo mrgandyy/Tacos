@@ -3,7 +3,7 @@ import { Container, Section } from '@/components/ui/Layout'
 import { GlitchText } from '@/components/ui/GlitchText'
 import { NeonContainer } from '@/components/ui/NeonContainer'
 import { Button } from '@/components/ui/Button'
-import { Users, ExternalLink, Globe, Cpu } from 'lucide-react'
+import { Users, ExternalLink, Globe, Cpu, MessageSquare } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
 
