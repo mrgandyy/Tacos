@@ -4,7 +4,7 @@ import { GlitchText } from '@/components/ui/GlitchText'
 import { NeonContainer } from '@/components/ui/NeonContainer'
 import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
-import { User, Music, ExternalLink, Disc, AudioWaveform, Headphones, Twitter, MessageSquare, Music2 } from 'lucide-react'
+import { User, Music, ExternalLink, Disc, AudioWaveform, Headphones, Twitter, MessageSquare, Music2, Twitch, Youtube } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
 
@@ -67,7 +67,7 @@ export default async function DJsPage() {
                                     {/* Content */}
                                     <div className="pt-14 p-6 flex-1 flex flex-col items-center text-center">
                                         <h3 className="text-2xl font-bold text-white mb-1 group-hover:text-brand-pink transition-colors">
-                                            {dj.username}
+                                            {dj.display_name || dj.username}
                                         </h3>
                                         <Badge variant="outline" className="mb-4 border-zinc-700 text-zinc-400 text-[10px] tracking-widest bg-zinc-900/50">
                                             RESIDENT
@@ -109,6 +109,16 @@ export default async function DJsPage() {
                                                             {dj.socials.discord}
                                                         </div>
                                                     </div>
+                                                )}
+                                                {dj.socials?.twitch && (
+                                                    <a href={dj.socials.twitch} target="_blank" rel="noopener noreferrer" className="text-zinc-500 hover:text-[#9146FF] transition-colors">
+                                                        <Twitch className="w-5 h-5" />
+                                                    </a>
+                                                )}
+                                                {dj.socials?.youtube && (
+                                                    <a href={dj.socials.youtube} target="_blank" rel="noopener noreferrer" className="text-zinc-500 hover:text-[#FF0000] transition-colors">
+                                                        <Youtube className="w-5 h-5" />
+                                                    </a>
                                                 )}
                                             </div>
 

@@ -12,18 +12,23 @@ export async function updateProfile(formData: FormData) {
     const bio = formData.get('bio') as string
     const genres = (formData.get('genres') as string).split(',').map(g => g.trim()).filter(Boolean)
     const avatar_url = formData.get('avatar_url') as string
+    const display_name = formData.get('display_name') as string
 
     // Socials
     const soundcloud = formData.get('soundcloud') as string
     const twitter = formData.get('twitter') as string
     const discord = formData.get('discord') as string
     const vrc = formData.get('vrc') as string
+    const twitch = formData.get('twitch') as string
+    const youtube = formData.get('youtube') as string
 
     const socials = {
         soundcloud,
         twitter,
         discord,
-        vrc
+        vrc,
+        twitch,
+        youtube
     }
 
     const { error } = await supabase
@@ -32,6 +37,7 @@ export async function updateProfile(formData: FormData) {
             bio,
             genres,
             avatar_url,
+            display_name,
             socials,
             updated_at: new Date().toISOString()
         })

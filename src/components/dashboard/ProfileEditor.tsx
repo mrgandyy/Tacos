@@ -8,7 +8,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
 import { Switch } from '@/components/ui/switch'
 import { updateProfile, toggleVisibility } from '@/app/actions/profile'
-import { Loader2, Music2, Twitter, MessageSquare, Gamepad2 } from 'lucide-react'
+import { Loader2, Music2, Twitter, MessageSquare, Gamepad2, Twitch, Youtube } from 'lucide-react'
 import { AvatarUpload } from './AvatarUpload'
 
 export function ProfileEditor({ profile }: { profile: any }) {
@@ -48,6 +48,18 @@ export function ProfileEditor({ profile }: { profile: any }) {
                     <form action={onSubmit} className="space-y-6">
                         <div className="flex justify-center mb-6">
                             <AvatarUpload value={avatarUrl} onChange={setAvatarUrl} />
+                        </div>
+
+                        <div className="space-y-2">
+                            <Label htmlFor="display_name">Display Name</Label>
+                            <Input
+                                id="display_name"
+                                name="display_name"
+                                defaultValue={profile.display_name || profile.username}
+                                className="bg-zinc-950 border-zinc-800"
+                                placeholder="Your Stage Name"
+                            />
+                            <p className="text-xs text-zinc-500">How you want to be known on the site.</p>
                         </div>
 
                         <div className="space-y-2">
@@ -112,6 +124,26 @@ export function ProfileEditor({ profile }: { profile: any }) {
                                         defaultValue={profile.socials?.vrc}
                                         placeholder="VRChat Profile URL"
                                         className="pl-9 bg-zinc-950/50 border-zinc-800 focus:ring-teal-500/50"
+                                    />
+                                </div>
+
+                                <div className="relative">
+                                    <Twitch className="absolute left-3 top-3 h-4 w-4 text-purple-400" />
+                                    <Input
+                                        name="twitch"
+                                        defaultValue={profile.socials?.twitch}
+                                        placeholder="Twitch Channel URL"
+                                        className="pl-9 bg-zinc-950/50 border-zinc-800 focus:ring-purple-500/50"
+                                    />
+                                </div>
+
+                                <div className="relative">
+                                    <Youtube className="absolute left-3 top-3 h-4 w-4 text-red-500" />
+                                    <Input
+                                        name="youtube"
+                                        defaultValue={profile.socials?.youtube}
+                                        placeholder="YouTube Channel URL"
+                                        className="pl-9 bg-zinc-950/50 border-zinc-800 focus:ring-red-500/50"
                                     />
                                 </div>
                             </div>
