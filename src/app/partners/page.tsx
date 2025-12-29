@@ -90,6 +90,13 @@ export default async function PartnersPage() {
                                                 </Link>
                                             </Button>
                                         )}
+                                        {group.discord_link && (
+                                            <Button asChild variant="outline" className="ml-2 border-indigo-500 text-indigo-400 hover:bg-indigo-500 hover:text-white transition-all">
+                                                <Link href={group.discord_link} target="_blank">
+                                                    Discord <MessageSquare className="w-4 h-4 ml-2" />
+                                                </Link>
+                                            </Button>
+                                        )}
                                     </div>
                                 </div>
                             </NeonContainer>
