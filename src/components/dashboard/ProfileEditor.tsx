@@ -19,6 +19,9 @@ export function ProfileEditor({ profile }: { profile: any }) {
         setLoading(true)
         try {
             await updateProfile(formData)
+        } catch (error) {
+            console.error('Error updating profile:', error)
+            alert('Failed to update profile. Please try again.')
         } finally {
             setLoading(false)
         }
